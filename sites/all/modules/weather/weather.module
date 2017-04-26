@@ -1,0 +1,101 @@
+
+<?php
+/**
+ * @file
+ * Epicodus Lab to use Google Visualization API to present data visualization.
+ */
+
+ /**
+  * Implements hook_node_info()
+  */
+ function weather_node_info() {
+     return array(
+         'weather' => array(
+             'name' => t('Weather'),
+             'base' => 'weather',
+             'description' => t('You can define new Weathers here'),
+             'has_title' => TRUE,
+             'title_label' => t('Weather title')
+          )
+     );
+ }
+
+ /**
+  * Implements hook_menu().
+  */
+function weather_menu() {
+    $items['search_weather'] = array(
+        'title' => 'Search Weather',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('weather_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['search_success_page'] = array(
+        'title' => 'Weather Results',
+        'page callback' => 'search_success',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_form().
+ */
+//  function weather_form($node, $form_state) {
+//     return node_content_form($node, $form_state);
+// }
+
+function weather_form() {
+    $form['find_weather'] = array(
+        '#title' => 'Search Location',
+        '#type' => 'textfield',
+        '#description' => t('Enter a location to find historical weather information.'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Search for weather',
+    );
+    return $form;
+}
+
+
+/**
+ * Implements hook_form_submit().
+ */
+function weather_form_submit($form, &$form_state) {
+    $find_weather = $form_state['values']['find_weather'];
+    $_SESSION['found_weather'] = $find_weather;
+    $form_state['redirect'] = 'search_success_page';
+}
+
+function search_success() {
+    $find_weather = $_SESSION['found_weather'];
+    $city_query = $find_weather;
+    $api_call = 'http://api.openweathermap.org/data/2.5/weather?q='
+        . $city_query
+        . '&appid=44b159a6e09eb0bf85810772f453cc91';
+    $result_string = file_get_contents($api_call);
+    $result_array = json_decode($result_string, TRUE);
+    var_dump($result_array["main"]);
+
+    if ($result_array === NULL) {
+        return '<h1>No Results for your query!</h1>';
+    }
+
+    else {
+        $output = '';
+        $output .= '<h2>' . $result_array["main"]["temp"] . '</h2>';
+        $output .= '<h3>' . $result_array["main"]["pressure"] . '</h3>';
+        $output .= '<h3>' . $result_array["main"]["humidity"] . '</h3>';
+        $output .= '<h3>' . $result_array["main"]["temp_min"] . '</h3>';
+        $output .= '<h3>' . $result_array["main"]["temp_max"] . '</h3>';
+        $output .= '<hr>';
+        return $output;
+    }
+}
+
+// 44b159a6e09eb0bf85810772f453cc91

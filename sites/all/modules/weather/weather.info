@@ -1,0 +1,6 @@
+name = Weather
+description = Find historical weather data.
+package = Custom Modules
+core = 7.x
+files[] = weather.module
+files[] = weather.install

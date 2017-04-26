@@ -1,0 +1,43 @@
+array(12) {
+    ["coord"]=> array(2) {
+    ["lon"]=> float(-0.13)
+    ["lat"]=> float(51.51)
+    }
+    ["weather"]=> array(1) {
+        [0]=> array(4)
+        {
+        ["id"]=> int(521)
+        ["main"]=> string(4) "Rain" 
+        ["description"]=> string(11) "shower rain"
+        ["icon"]=> string(3) "09d"
+        }
+    }
+    ["base"]=> string(8) "stations"
+    ["main"]=> array(5) {
+        ["temp"]=> float(278.48)
+        ["pressure"]=> int(1019)
+        ["humidity"]=> int(81)
+        ["temp_min"]=> float(277.15)
+        ["temp_max"]=> float(280.15)
+        }
+        ["visibility"]=> int(10000)
+        ["wind"]=> array(2) {
+            ["speed"]=> float(3.1)
+            ["deg"]=> int(350)
+            }
+            ["clouds"]=> array(1) {
+                ["all"]=> int(80)
+                }
+                ["dt"]=> int(1493232600)
+                ["sys"]=> array(6) {
+                    ["type"]=> int(1)
+                    ["id"]=> int(5091)
+                    ["message"]=> float(0.0055)
+                    ["country"]=> string(2) "GB"
+                    ["sunrise"]=> int(1493181616)
+                    ["sunset"]=> int(1493234229)
+                    }
+                    ["id"]=> int(2643743)
+                    ["name"]=> string(6) "London"
+                    ["cod"]=> int(200)
+                    }
